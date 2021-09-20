@@ -1,6 +1,6 @@
 streamlit==0.88.0
 pandas==1.1.5
-libxgboost==0.90
+libxgboost==1.4.2
 numpy==1.18.1
 scikit-learn==0.21.3
 matplotlib==3.1.1
