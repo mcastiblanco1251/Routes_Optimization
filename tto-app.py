@@ -41,20 +41,20 @@ with row1_2:
 
             submit_button = st.form_submit_button(label='Enviar')
             if submit_button:
-                msg = email.message_from_string(q)
-                msg['From'] = 'App:Optimizacion'
-                msg['To'] = 'macs1251@hotmail.com'
-                msg['Subject'] = f"Consulta App Optimizacion de: {name}; mail: {mail}"
-
-                s = smtplib.SMTP('smtp-mail.outlook.com',587)
-                s.ehlo() # Hostname to send for this command defaults to the fully qualified domain name of the local host.
-                s.starttls() #Puts connection to SMTP server in TLS mode
-                s.ehlo()
-                s.login('macs1251@hotmail.com', '1251macs')
-
-                s.sendmail("macs1251@hotmail.com",'macs1251@hotmail.com', msg.as_string())
-
-                s.quit()
+                subject = 'Consulta'
+                to = 'macs1251@hotmail.com'
+                sender = 'macs1251@hotmail.com'
+                smtpserver = smtplib.SMTP("smtp-mail.outlook.com",587)
+                user = 'macs1251@hotmail.com'
+                password = '1251macs'
+                smtpserver.ehlo()
+                smtpserver.starttls()
+                smtpserver.ehlo()
+                smtpserver.login(user, password)
+                header = 'To:' + to + '\n' + 'From: ' + sender + '\n' + 'Subject:' + subject + '\n'
+                message = header + '\n'+name + '\n'+mail+'\n'+ q
+                smtpserver.sendmail(sender, to, message)
+                smtpserver.close()
 
 
 st.header('Aplicación')
