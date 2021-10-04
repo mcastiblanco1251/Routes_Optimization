@@ -319,215 +319,215 @@ with st.expander('Tabla Ruta y Tiempo de Trayecto'):
     ml=pd.DataFrame(r_t, columns=['Ruta', 't Trayecto(min)'])
     ml
 
-# st.subheader('Optimizacion de Generación')
-#
-# def get_breeders_from_generation(guesses, take_best_N=10, take_random_N=5, verbose=False, mutation_rate=0.1):
-#     """
-#     This sets up the breeding group for the next generation. You have
-#     to be very careful how many breeders you take, otherwise your
-#     population can explode. These two, plus the "number of children per couple"
-#     in the make_children function must be tuned to avoid exponential growth or decline!
-#     """
-#     # First, get the top guesses from last time
-#     fit_scores = check_fitness(guesses)
-#     sorted_guesses = sorted(fit_scores, key=lambda x: x[1]) # sorts so lowest is first, which we want
-#     new_generation = [x[0] for x in sorted_guesses[:take_best_N]]
-#     best_guess = new_generation[0]
-#
-#     if verbose:
-#         # If we want to see what the best current guess is!
-#         print(best_guess)
-#
-#     # Second, get some random ones for genetic diversity
-#     for _ in range(take_random_N):
-#         ix = np.random.randint(len(guesses))
-#         new_generation.append(guesses[ix])
-#
-#     # No mutations here since the order really matters.
-#     # If we wanted to, we could add a "swapping" mutation,
-#     # but in practice it doesn't seem to be necessary
-#
-#     np.random.shuffle(new_generation)
-#     return new_generation, best_guess
-#
-# def make_child(parent1, parent2):
-#     """
-#     Take some values from parent 1 and hold them in place, then merge in values
-#     from parent2, filling in from left to right with cities that aren't already in
-#     the child.
-#     """
-#     list_of_ids_for_parent1 = list(np.random.choice(parent1, replace=False, size=len(parent1)//2))
-#     child = [-99 for _ in parent1]
-#
-#     for ix in range(0, len(list_of_ids_for_parent1)):
-#         child[ix] = parent1[ix]
-#     for ix, gene in enumerate(child):
-#         if gene == -99:
-#             for gene2 in parent2:
-#                 if gene2 not in child:
-#                     child[ix] = gene2
-#                     break
-#     child[-1] = child[0]
-#     return child
-#
-# def make_children(old_generation, children_per_couple=1):
-#     """
-#     will be left out.
-#     Pairs parents together, and makes children for each pair.
-#     If there are an odd number of parent possibilities, one
-#
-#     Pairing happens by pairing the first and last entries.
-#     Then the second and second from last, and so on.
-#     """
-#     mid_point = len(old_generation)//2
-#     next_generation = []
-#
-#     for ix, parent in enumerate(old_generation[:mid_point]):
-#         for _ in range(children_per_couple):
-#             next_generation.append(make_child(parent, old_generation[-ix-1]))
-#     return next_generation
-#
-# current_generation = create_generation(list(test_locations.keys()),population=500)
-# print_every_n_generations = 5
-#
-# latest_iteration = st.empty()
-# bar = st.progress(0)
-#
-# for i in range(iter+1):
-#     latest_iteration.text(f'Progreso de Optimización {i*(100//iter)}%')
-#     bar.progress(i *(100//iter))
-#     time.sleep(0.1)
-#     if not i % print_every_n_generations:
-#         print("Generation %i: "%i, end='')
-#         print(len(current_generation))
-#         is_verbose = True
-#     else:
-#         is_verbose = False
-#     breeders, best_guess = get_breeders_from_generation(current_generation,
-#                                                         take_best_N=250, take_random_N=100,
-#                                                         verbose=is_verbose)
-#     current_generation = make_children(breeders, children_per_couple=3)
-#
-# st.subheader('Encontrando la Ruta Optima')
-#
-# def evolve_to_solve(current_generation, max_generations, take_best_N, take_random_N,
-#                     mutation_rate, children_per_couple, print_every_n_generations, verbose=False):
-#     """
-#     Takes in a generation of guesses then evolves them over time using our breeding rules.
-#     Continue this for "max_generations" times.
-#     Inputs:
-#     current_generation: The first generation of guesses
-#     max_generations: how many generations to complete
-#     take_best_N: how many of the top performers get selected to breed
-#     take_random_N: how many random guesses get brought in to keep genetic diversity
-#     mutation_rate: How often to mutate (currently unused)
-#     children_per_couple: how many children per breeding pair
-#     print_every_n_geneartions: how often to print in verbose mode
-#     verbose: Show printouts of progress
-#     Returns:
-#     fitness_tracking: a list of the fitness score at each generations
-#     best_guess: the best_guess at the end of evolution
-#     """
-#     fitness_tracking = []
-#     latest_iteration = st.empty()
-#     bar = st.progress(0)
-#     for i in range(max_generations+1):
-#         latest_iteration.text(f'Progreso de Optimización {i*(100//max_generations)}%')
-#         bar.progress(i *(100//max_generations))
-#         time.sleep(0.1)
-#         if verbose and not i % print_every_n_generations and i > 0:
-#             print("Generation %i: "%i, end='')
-#             print(len(current_generation))
-#             print("Current Best Score: ", fitness_tracking[-1])
-#             is_verbose = True
-#         else:
-#             is_verbose = False
-#         breeders, best_guess = get_breeders_from_generation(current_generation,
-#                                                             take_best_N=take_best_N, take_random_N=take_random_N,
-#                                                             verbose=is_verbose, mutation_rate=mutation_rate)
-#         fitness_tracking.append(fitness_score(best_guess))
-#         current_generation = make_children(breeders, children_per_couple=children_per_couple)
-#
-#     return fitness_tracking, best_guess
-#
-# current_generation = create_generation(list(test_locations.keys()),population=500)
-# fitness_tracking, best_guess = evolve_to_solve(current_generation, iter, 150, 70, 0.5, 3, 5, verbose=True)
-#
-# st.write('**La Ruta Optima fue Encontrada**')
-#
-# #Graficar la respuesta optima
-# a=[]
-# for i in range (len(best_guess)):
-#     for j in range(len(list(test_locations))):
-#         if best_guess[i]==list(test_locations.items())[j][0]:
-#             p=list(test_locations.items())[j][1]
-#             a.append(p)
-#
-# df1=pd.DataFrame(a, columns=['lat', 'lon'])
-# #df1
-# df2=pd.DataFrame(best_guess, columns=['Loc'])
-# #df2.T
-#
-# df3=df2.join(df1)
-# #df3
-#
-# lon2=[]
-# lat2=[]
-# for i in range(len(df2)-1):
-#     lat=df3.lat[i+1]
-#     lon=df3.lon[i+1]
-#     lon2.append(lon)
-#     lat2.append(lat)
-# df4=df3[:-1]
-# df4['lon2']=lon2
-# df4['lat2']=lat2
-#
-#
-#
-# #df4
-#
-# row4_1, row4_2, = st.columns((2,2))
-# with row4_1:
-#
-#     st.pydeck_chart(pdk.Deck(
-#         map_style="mapbox://styles/mapbox/light-v9",
-#         initial_view_state={"latitude": df3.lat.mean(),
-#                             "longitude": df3.lon.mean(), "zoom": 10, "pitch": 50},
-#         layers=[
-#             pdk.Layer(
-#             "TextLayer",
-#             data=df4,
-#             get_position=["lon", "lat"],
-#             get_text="Loc",
-#             get_color=[0, 0, 0, 200],
-#             get_size=16,
-#             get_alignment_baseline="'bottom'",
-#             ),
-#
-#             pdk.Layer(
-#                 "ArcLayer",
-#                 data=df4,
-#                 get_source_position=["lon", "lat"],
-#                 get_target_position=["lon2", "lat2"],
-#                 get_source_color=[255, 0, 0, 255],
-#                 get_target_color=[0, 255, 0, 255],
-#                 auto_highlight=True,
-#                 width_scale=0.0001,
-#                 get_width="outbound",
-#                 getHeight=1,
-#                 width_min_pixels=3,
-#                 width_max_pixels=30,
-#             ),
-#         ],
-#     ))
-# st.markdown('<p style="font-family:sans-serif; color:Black; font-size: 10px;"> Ruta a Optima</p>', unsafe_allow_html=True)
-#
-# with row4_2:
-#     st.pyplot(plot_guess(test_locations, best_guess))
-#     st.markdown('<p style="font-family:sans-serif; color:Black; font-size: 10px;">Esquema X-Y Ruta Optima: {}</p>'.format(df2.Loc), unsafe_allow_html=True)
-#
-# # Contact Form
-#
-# with st.expander('Necesita Ayuda? 👉'):
-#     st.markdown(
-#             "Tiene problemas en entender la App? contacte [Manuel Castiblanco](https://www.fitconsulting.net/)")
+st.subheader('Optimizacion de Generación')
+
+def get_breeders_from_generation(guesses, take_best_N=10, take_random_N=5, verbose=False, mutation_rate=0.1):
+    """
+    This sets up the breeding group for the next generation. You have
+    to be very careful how many breeders you take, otherwise your
+    population can explode. These two, plus the "number of children per couple"
+    in the make_children function must be tuned to avoid exponential growth or decline!
+    """
+    # First, get the top guesses from last time
+    fit_scores = check_fitness(guesses)
+    sorted_guesses = sorted(fit_scores, key=lambda x: x[1]) # sorts so lowest is first, which we want
+    new_generation = [x[0] for x in sorted_guesses[:take_best_N]]
+    best_guess = new_generation[0]
+
+    if verbose:
+        # If we want to see what the best current guess is!
+        print(best_guess)
+
+    # Second, get some random ones for genetic diversity
+    for _ in range(take_random_N):
+        ix = np.random.randint(len(guesses))
+        new_generation.append(guesses[ix])
+
+    # No mutations here since the order really matters.
+    # If we wanted to, we could add a "swapping" mutation,
+    # but in practice it doesn't seem to be necessary
+
+    np.random.shuffle(new_generation)
+    return new_generation, best_guess
+
+def make_child(parent1, parent2):
+    """
+    Take some values from parent 1 and hold them in place, then merge in values
+    from parent2, filling in from left to right with cities that aren't already in
+    the child.
+    """
+    list_of_ids_for_parent1 = list(np.random.choice(parent1, replace=False, size=len(parent1)//2))
+    child = [-99 for _ in parent1]
+
+    for ix in range(0, len(list_of_ids_for_parent1)):
+        child[ix] = parent1[ix]
+    for ix, gene in enumerate(child):
+        if gene == -99:
+            for gene2 in parent2:
+                if gene2 not in child:
+                    child[ix] = gene2
+                    break
+    child[-1] = child[0]
+    return child
+
+def make_children(old_generation, children_per_couple=1):
+    """
+    will be left out.
+    Pairs parents together, and makes children for each pair.
+    If there are an odd number of parent possibilities, one
+
+    Pairing happens by pairing the first and last entries.
+    Then the second and second from last, and so on.
+    """
+    mid_point = len(old_generation)//2
+    next_generation = []
+
+    for ix, parent in enumerate(old_generation[:mid_point]):
+        for _ in range(children_per_couple):
+            next_generation.append(make_child(parent, old_generation[-ix-1]))
+    return next_generation
+
+current_generation = create_generation(list(test_locations.keys()),population=500)
+print_every_n_generations = 5
+
+latest_iteration = st.empty()
+bar = st.progress(0)
+
+for i in range(iter+1):
+    latest_iteration.text(f'Progreso de Optimización {i*(100//iter)}%')
+    bar.progress(i *(100//iter))
+    time.sleep(0.1)
+    if not i % print_every_n_generations:
+        print("Generation %i: "%i, end='')
+        print(len(current_generation))
+        is_verbose = True
+    else:
+        is_verbose = False
+    breeders, best_guess = get_breeders_from_generation(current_generation,
+                                                        take_best_N=250, take_random_N=100,
+                                                        verbose=is_verbose)
+    current_generation = make_children(breeders, children_per_couple=3)
+
+st.subheader('Encontrando la Ruta Optima')
+
+def evolve_to_solve(current_generation, max_generations, take_best_N, take_random_N,
+                    mutation_rate, children_per_couple, print_every_n_generations, verbose=False):
+    """
+    Takes in a generation of guesses then evolves them over time using our breeding rules.
+    Continue this for "max_generations" times.
+    Inputs:
+    current_generation: The first generation of guesses
+    max_generations: how many generations to complete
+    take_best_N: how many of the top performers get selected to breed
+    take_random_N: how many random guesses get brought in to keep genetic diversity
+    mutation_rate: How often to mutate (currently unused)
+    children_per_couple: how many children per breeding pair
+    print_every_n_geneartions: how often to print in verbose mode
+    verbose: Show printouts of progress
+    Returns:
+    fitness_tracking: a list of the fitness score at each generations
+    best_guess: the best_guess at the end of evolution
+    """
+    fitness_tracking = []
+    latest_iteration = st.empty()
+    bar = st.progress(0)
+    for i in range(max_generations+1):
+        latest_iteration.text(f'Progreso de Optimización {i*(100//max_generations)}%')
+        bar.progress(i *(100//max_generations))
+        time.sleep(0.1)
+        if verbose and not i % print_every_n_generations and i > 0:
+            print("Generation %i: "%i, end='')
+            print(len(current_generation))
+            print("Current Best Score: ", fitness_tracking[-1])
+            is_verbose = True
+        else:
+            is_verbose = False
+        breeders, best_guess = get_breeders_from_generation(current_generation,
+                                                            take_best_N=take_best_N, take_random_N=take_random_N,
+                                                            verbose=is_verbose, mutation_rate=mutation_rate)
+        fitness_tracking.append(fitness_score(best_guess))
+        current_generation = make_children(breeders, children_per_couple=children_per_couple)
+
+    return fitness_tracking, best_guess
+
+current_generation = create_generation(list(test_locations.keys()),population=500)
+fitness_tracking, best_guess = evolve_to_solve(current_generation, iter, 150, 70, 0.5, 3, 5, verbose=True)
+
+st.write('**La Ruta Optima fue Encontrada**')
+
+#Graficar la respuesta optima
+a=[]
+for i in range (len(best_guess)):
+    for j in range(len(list(test_locations))):
+        if best_guess[i]==list(test_locations.items())[j][0]:
+            p=list(test_locations.items())[j][1]
+            a.append(p)
+
+df1=pd.DataFrame(a, columns=['lat', 'lon'])
+#df1
+df2=pd.DataFrame(best_guess, columns=['Loc'])
+#df2.T
+
+df3=df2.join(df1)
+#df3
+
+lon2=[]
+lat2=[]
+for i in range(len(df2)-1):
+    lat=df3.lat[i+1]
+    lon=df3.lon[i+1]
+    lon2.append(lon)
+    lat2.append(lat)
+df4=df3[:-1]
+df4['lon2']=lon2
+df4['lat2']=lat2
+
+
+
+#df4
+
+row4_1, row4_2, = st.columns((2,2))
+with row4_1:
+
+    st.pydeck_chart(pdk.Deck(
+        map_style="mapbox://styles/mapbox/light-v9",
+        initial_view_state={"latitude": df3.lat.mean(),
+                            "longitude": df3.lon.mean(), "zoom": 10, "pitch": 50},
+        layers=[
+            pdk.Layer(
+            "TextLayer",
+            data=df4,
+            get_position=["lon", "lat"],
+            get_text="Loc",
+            get_color=[0, 0, 0, 200],
+            get_size=16,
+            get_alignment_baseline="'bottom'",
+            ),
+
+            pdk.Layer(
+                "ArcLayer",
+                data=df4,
+                get_source_position=["lon", "lat"],
+                get_target_position=["lon2", "lat2"],
+                get_source_color=[255, 0, 0, 255],
+                get_target_color=[0, 255, 0, 255],
+                auto_highlight=True,
+                width_scale=0.0001,
+                get_width="outbound",
+                getHeight=1,
+                width_min_pixels=3,
+                width_max_pixels=30,
+            ),
+        ],
+    ))
+st.markdown('<p style="font-family:sans-serif; color:Black; font-size: 10px;"> Ruta a Optima</p>', unsafe_allow_html=True)
+
+with row4_2:
+    st.pyplot(plot_guess(test_locations, best_guess))
+    st.markdown('<p style="font-family:sans-serif; color:Black; font-size: 10px;">Esquema X-Y Ruta Optima: {}</p>'.format(df2.Loc), unsafe_allow_html=True)
+
+# Contact Form
+
+with st.expander('Necesita Ayuda? 👉'):
+    st.markdown(
+            "Tiene problemas en entender la App? contacte [Manuel Castiblanco](https://github.com/mcastiblanco1251)")
