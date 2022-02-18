@@ -68,7 +68,7 @@ st.write('______________________________________________________________________
 st.sidebar.subheader('Archivo con los sitios a optimizar')
 
 
-loaded_model=joblib.load("C:/Users/Mcastiblanco/Documents/AGPC/DataScience2020/Streamlit/Optimizacion/xgb_model.json")
+loaded_model=joblib.load("xgb_model.json")
 
 uploaded_file = st.sidebar.file_uploader("Cargue archivo CSV si tienes los puntos a Optimizar p.e.: {L1: Latitud:0.0, Longitud:0.0}", type=["csv"])
 
@@ -171,7 +171,7 @@ with row2_1:
             get_position=["lon", "lat"],
             radius=500,
             elevation_scale=50,
-
+            #colorRage(0, 0, 0, 200),
             elevation_range=[0, 3000],
             extruded=True,
 
