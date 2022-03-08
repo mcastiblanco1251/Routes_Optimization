@@ -28,7 +28,7 @@ row1_1, row1_2 = st.columns((2,3))
 with row1_1:
     image = Image.open('opt.jpg')
     st.image(image, use_column_width=True)
-    st.markdown('Web App by [Manuel Castiblanco](http://ia.smartecorganic.com.co/)')
+    st.markdown('Web App by [Manuel Castiblanco](http://ia.smartecorganic.com.co/index.php/contact/)')
 with row1_2:
     st.write("""
     # Ruta Optima App
@@ -539,4 +539,4 @@ with row4_2:
 
 with st.expander('Necesita Ayuda? 👉'):
     st.markdown(
-            "Tiene problemas en entender la App? contacte [Manuel Castiblanco](http://ia.smartecorganic.com.co/)")
+            "Tiene problemas en entender la App? contacte [Manuel Castiblanco](http://ia.smartecorganic.com.co/index.php/contact/)")
