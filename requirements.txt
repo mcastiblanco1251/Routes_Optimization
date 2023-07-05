@@ -1,6 +1,6 @@
 streamlit
 pandas
-xgboost==1.1.1
+xgboost
 numpy
 scikit-learn
 matplotlib
