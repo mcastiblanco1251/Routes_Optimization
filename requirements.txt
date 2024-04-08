@@ -6,5 +6,4 @@ scikit-learn
 matplotlib
 pydeck
 geopy
-Nominatim
 joblib
