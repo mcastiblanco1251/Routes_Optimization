@@ -106,7 +106,7 @@ my_date=date()
 
 
 
-geolocator = Nominatim(user_agent="http")
+geolocator = Nominatim(user_agent="tto")
 test_locations={}
 loc_a=[]
 for i in range(len(map_data)):
