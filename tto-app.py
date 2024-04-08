@@ -5,7 +5,7 @@ from matplotlib import pyplot as plt
 from copy import copy
 import datetime
 import pickle
-from geopy.geocoders import Nominatim
+from geopy.geocoders import  Photon
 from datetime import date
 import streamlit as st
 from PIL import Image
@@ -106,7 +106,7 @@ my_date=date()
 
 
 
-geolocator = Nominatim(user_agent="tto")
+geolocator =  Photon(user_agent="tto")
 test_locations={}
 loc_a=[]
 for i in range(len(map_data)):
