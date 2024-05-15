@@ -106,7 +106,7 @@ my_date=date()
 
 
 
-geolocator =  Photon(user_agent="tto")
+geolocator =  Photon(user_agent="tto", timeout=None)
 test_locations={}
 loc_a=[]
 for i in range(len(map_data)):
