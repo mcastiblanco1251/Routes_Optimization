@@ -19,7 +19,7 @@ import joblib
 im = Image.open("rutas.jpg")
 
 st.set_page_config(page_title='Optimizacion', layout="wide", page_icon=im)
-st.set_option('deprecation.showPyplotGlobalUse', False)
+#st.set_option('deprecation.showPyplotGlobalUse', False)
 
 # LAYING OUT THE TOP SECTION OF THE APP
 
