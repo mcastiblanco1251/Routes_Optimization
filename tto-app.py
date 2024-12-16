@@ -27,7 +27,7 @@ row1_1, row1_2 = st.columns((2,3))
 
 with row1_1:
     image = Image.open('opt.jpg')
-    st.image(image, use_column_width=True)
+    st.image(image, use_container_width=True)
     st.markdown('Web App by [Manuel Castiblanco](http://ia.smartecorganic.com.co/index.php/contact/)')
 with row1_2:
     st.write("""
@@ -215,7 +215,7 @@ def plot_cities(city_coordinates, annotate=True):
                         arrowprops=dict(arrowstyle = '->', connectionstyle='arc3,rad=0'))
     plt.scatter(x,y,c='r',marker='o')
 
-plot_cities(test_locations)
+#plot_cities(test_locations)
 
 
 def plot_guess(city_coordinates, guess, guess_in_title=False):
@@ -245,10 +245,10 @@ st.subheader('Representación esquematica Inicial')
 row3_1, row3_2, = st.columns((2,2))
 with row3_1:
 
-    st.pyplot(plot_cities(test_locations))
+    st.pyplot(fig=plot_cities(test_locations))
     st.markdown('<p style="font-family:sans-serif; color:Black; font-size: 10px;">Esquema X-Y de los puntos de Ruta a Optimizar</p>', unsafe_allow_html=True)
 with row3_2:
-    st.pyplot(plot_guess(test_locations, path))
+    st.pyplot(fig=plot_guess(test_locations, path))
     st.markdown('<p style="font-family:sans-serif; color:Black; font-size: 10px;">Esquema X-Y ruta inicial: {}</p>'.format(path), unsafe_allow_html=True)
 
 st.subheader('Machine Learning & Optimización')
