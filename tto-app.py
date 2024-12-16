@@ -203,7 +203,7 @@ def plot_cities(city_coordinates, annotate=True):
     names = []
     x = []
     y = []
-    plt.figure(dpi=250)
+    fig=plt.figure(dpi=250)
     for ix, coord in city_coordinates.items():
         names.append(ix)
         x.append(coord[0])
