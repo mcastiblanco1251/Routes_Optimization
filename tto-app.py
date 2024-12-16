@@ -203,7 +203,7 @@ def plot_cities(city_coordinates, annotate=True):
     names = []
     x = []
     y = []
-    fig, ax=plt.figure(dpi=250)
+    plt.figure(dpi=250)
     for ix, coord in city_coordinates.items():
         names.append(ix)
         x.append(coord[0])
@@ -213,7 +213,8 @@ def plot_cities(city_coordinates, annotate=True):
                         textcoords='offset points', ha='right', va='bottom',
                         bbox=dict(boxstyle='round,pad=0.5', fc='w', alpha=0.5),
                         arrowprops=dict(arrowstyle = '->', connectionstyle='arc3,rad=0'))
-    ax=plt.scatter(x,y,c='r',marker='o')
+    fig=plt.scatter(x,y,c='r',marker='o')
+    return(fig)
 
 #plot_cities(test_locations)
 
