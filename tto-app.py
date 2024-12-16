@@ -228,6 +228,7 @@ def plot_guess(city_coordinates, guess, guess_in_title=False):
     guess: list of ids in order
     """
     plot_cities(city_coordinates)
+    fig=plt.figure(dpi=250)
     for ix, current_city in enumerate(guess[:-1]):
         x = [city_coordinates[guess[ix]][0],city_coordinates[guess[ix+1]][0]]
         y = [city_coordinates[guess[ix]][1],city_coordinates[guess[ix+1]][1]]
@@ -237,6 +238,7 @@ def plot_guess(city_coordinates, guess, guess_in_title=False):
         plt.title("Current Guess: [%s]"%(','.join([str(x) for x in guess])))
     else:
         print("Current Guess: [%s]"%(','.join([str(x) for x in guess])))
+    return(fig)
 
 path = create_guess(list(test_locations.keys()))
 #st.write(path)#print(path)
@@ -249,8 +251,8 @@ with row3_1:
     st.pyplot(plot_cities(test_locations))
     st.markdown('<p style="font-family:sans-serif; color:Black; font-size: 10px;">Esquema X-Y de los puntos de Ruta a Optimizar</p>', unsafe_allow_html=True)
 with row3_2:
-    fig=plot_guess(test_locations, path)
-    st.pyplot(fig)
+    #fig=
+    st.pyplot(plot_guess(test_locations, path))
     st.markdown('<p style="font-family:sans-serif; color:Black; font-size: 10px;">Esquema X-Y ruta inicial: {}</p>'.format(path), unsafe_allow_html=True)
 
 st.subheader('Machine Learning & Optimización')
