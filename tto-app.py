@@ -245,8 +245,8 @@ st.subheader('Representación esquematica Inicial')
 
 row3_1, row3_2, = st.columns((2,2))
 with row3_1:
-    fig=plot_cities(test_locations)
-    st.pyplot(fig)
+    #fig=plot_cities(test_locations)
+    st.pyplot(plot_cities(test_locations))
     st.markdown('<p style="font-family:sans-serif; color:Black; font-size: 10px;">Esquema X-Y de los puntos de Ruta a Optimizar</p>', unsafe_allow_html=True)
 with row3_2:
     fig=plot_guess(test_locations, path)
