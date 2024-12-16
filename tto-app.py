@@ -238,7 +238,7 @@ def plot_guess(city_coordinates, guess, guess_in_title=False):
         plt.title("Current Guess: [%s]"%(','.join([str(x) for x in guess])))
     else:
         print("Current Guess: [%s]"%(','.join([str(x) for x in guess])))
-    return(fig)
+    #return(fig)
 
 path = create_guess(list(test_locations.keys()))
 #st.write(path)#print(path)
