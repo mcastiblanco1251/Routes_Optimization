@@ -228,7 +228,7 @@ def plot_guess(city_coordinates, guess, guess_in_title=False):
     guess: list of ids in order
     """
     #plot_cities(city_coordinates)
-    fig=plt.figure(dpi=250)
+    #fig=plt.figure(dpi=250)
     for ix, current_city in enumerate(guess[:-1]):
         x = [city_coordinates[guess[ix]][0],city_coordinates[guess[ix+1]][0]]
         y = [city_coordinates[guess[ix]][1],city_coordinates[guess[ix+1]][1]]
