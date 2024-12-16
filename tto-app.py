@@ -244,11 +244,12 @@ st.subheader('Representación esquematica Inicial')
 
 row3_1, row3_2, = st.columns((2,2))
 with row3_1:
-
-    st.pyplot(fig=plot_cities(test_locations))
+    fig=plot_cities(test_locations)
+    st.pyplot(fig)
     st.markdown('<p style="font-family:sans-serif; color:Black; font-size: 10px;">Esquema X-Y de los puntos de Ruta a Optimizar</p>', unsafe_allow_html=True)
 with row3_2:
-    st.pyplot(fig=plot_guess(test_locations, path))
+    fig=plot_guess(test_locations, path)
+    st.pyplot(fig)
     st.markdown('<p style="font-family:sans-serif; color:Black; font-size: 10px;">Esquema X-Y ruta inicial: {}</p>'.format(path), unsafe_allow_html=True)
 
 st.subheader('Machine Learning & Optimización')
