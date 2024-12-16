@@ -232,7 +232,7 @@ def plot_guess(city_coordinates, guess, guess_in_title=False):
     for ix, current_city in enumerate(guess[:-1]):
         x = [city_coordinates[guess[ix]][0],city_coordinates[guess[ix+1]][0]]
         y = [city_coordinates[guess[ix]][1],city_coordinates[guess[ix+1]][1]]
-        plt.plot(x,y,'c--',lw=1)
+        plt.scatter(x,y,'c--',lw=1)
     plt.scatter(city_coordinates[guess[0]][0],city_coordinates[guess[0]][1], marker='x', c='b')
     if guess_in_title:
         plt.title("Current Guess: [%s]"%(','.join([str(x) for x in guess])))
